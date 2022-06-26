@@ -8,20 +8,20 @@ export type Prefectures = {
   message: string | null;
   result: Prefecture[];
 };
-export type CompositonParams = {
+export type PopulationCompositonParams = {
   prefCode: number;
   cityCode: number | '-';
   addArea?: string;
 };
-export type Compositon = {
+export type PopulationComposition = {
   label: string;
   data: { year: number; value: number; rate?: number }[];
 };
-export type Compositons = {
+export type PopulationCompositions = {
   message: string | null;
   result: {
     boundaryYear: number;
-    data: Compositon[];
+    data: PopulationComposition[];
   };
 };
 
@@ -36,11 +36,11 @@ const api = axios.create({
 const handleSuccess = (res: AxiosResponse) => Promise.resolve(res.data);
 const handleError = (err: AxiosError) => Promise.reject(err);
 
-const prefectures = () => api.get('/prefectures').then<Prefectures>(handleSuccess).catch(handleError);
-const populationComposition = async (params: CompositonParams) => {
+const prefectures = () => api.get<Prefectures>('/prefectures').then(handleSuccess).catch(handleError);
+const populationComposition = async (params: PopulationCompositonParams) => {
   return api
-    .get<CompositonParams>('/population/composition/perYear', { params })
-    .then<Compositons>(handleSuccess)
+    .get<PopulationCompositions>('/population/composition/perYear', { params })
+    .then(handleSuccess)
     .catch(handleError);
 };
 
