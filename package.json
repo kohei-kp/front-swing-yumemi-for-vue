@@ -11,6 +11,8 @@
     "fix": "npm run format && npm run lint"
   },
   "dependencies": {
+    "highcharts": "^10.1.0",
+    "highcharts-vue": "^1.4.0",
     "vue": "^3.2.25"
   },
   "devDependencies": {
