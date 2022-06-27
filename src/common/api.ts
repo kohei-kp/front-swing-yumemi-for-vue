@@ -33,7 +33,7 @@ const api = axios.create({
   },
 });
 
-const handleSuccess = (res: AxiosResponse) => Promise.resolve(res.data);
+const handleSuccess = <T>(res: AxiosResponse<T>) => Promise.resolve(res.data);
 const handleError = (err: AxiosError) => Promise.reject(err);
 
 const prefectures = () => api.get<Prefectures>('/prefectures').then(handleSuccess).catch(handleError);
