@@ -6,6 +6,18 @@ type Props = {
 };
 
 defineProps<Props>();
+
+type Emits = {
+  (e: 'change', value: number): void;
+  (e: 'update:value', value: number): void;
+};
+const emit = defineEmits<Emits>();
+
+const handleChange = (e: Event) => {
+  const target = e.target as HTMLInputElement;
+  emit('change', Number(target.value));
+  emit('update:value', Number(target.value));
+};
 </script>
 
 <template>
@@ -15,9 +27,10 @@ defineProps<Props>();
       v-for="prefecture in prefectures"
       :key="prefecture.prefCode"
       :for="String(prefecture.prefCode)"
+      @change="handleChange"
       class="prefecture"
     >
-      <input type="checkbox" :id="prefecture.prefCode" />
+      <input type="checkbox" :id="String(prefecture.prefCode)" :value="prefecture.prefCode" />
       {{ prefecture.prefName }}
     </label>
   </section>
